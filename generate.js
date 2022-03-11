@@ -1,4 +1,4 @@
-const rand = require('./lib/nescafe');
+const rand = require('./lib/bonpary');
 const crypto = require('crypto');
 const { appendFileSync, readFileSync } = require('fs');
 const xlsx = require('node-xlsx');
@@ -34,6 +34,20 @@ const generateRealCodesNescafe = async () => {
             const length = hash.length
             console.log(`${hash} - ${length}`)
             appendFileSync(`./codes/nescafe/addnew/${key}.txt`, hash + '\n')
+        }
+    })
+}
+
+const generateRealCodesBonPary = async () => {
+    const SKU = new Map();
+    SKU.set('Бонпари[codes]', 10000);
+
+    SKU.forEach((value, key) => {
+        for(let i = 1; i <= value; i++) {
+            const hash = `${rand(78, 26)}`
+            const length = hash.length
+            console.log(`${hash} - ${length}`)
+            appendFileSync(`./codes/bonpary/${key}.txt`, hash + '\n')
         }
     })
 }
@@ -75,9 +89,10 @@ const hash256 = (str) => {
 }
 
 const main = async () => {
-    await hashCodes();
+    //await hashCodes();
     //await generateRealCodesLaminat();
     //await generateRealCodesNescafe();
+    await generateRealCodesBonPary();
 }
 
 main();
